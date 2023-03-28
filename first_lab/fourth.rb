@@ -20,7 +20,13 @@ def average_modules (arr)
 	(arr.inject(0){ |sum, i| sum + i.abs }.to_f) / arr.size
 end
 
-a = [1,-2,3,4]
-k = average_modules(a)
+def new_list (arr)
+	averange = (arr.inject(0){ |sum, i| sum + i }.to_i) / arr.size
+	max = arr.max
+	return Array.new(arr.length){|index| index = Random.rand(averange+1..max-1)}
+end
+
+a = [1,-2,3,4,100,-23,122]
+k = new_list(a)
 print k
 
