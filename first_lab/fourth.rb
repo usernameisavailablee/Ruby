@@ -13,13 +13,14 @@ def swap_min_max(arr)
 end
 
 def have_max_in_interval? (arr,a,b)
-	return arr.max == arr[a..b].max
-
+	arr.max == arr[a..b].max
 end
 
+def average_modules (arr)
+	(arr.inject(0){ |sum, i| sum + i.abs }.to_f) / arr.size
+end
 
-a = [1,2,3,4]
-k = have_max_in_interval?(a,1,2)
+a = [1,-2,3,4]
+k = average_modules(a)
 print k
 
-#Дан целочисленный массив и интервал a..b. Необходимо проверить наличие максимального элемента массива в этом интервале.
