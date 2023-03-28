@@ -1,5 +1,4 @@
 number = ARGV[0].to_i
-
 #Найти количество делителей числа, не делящихся на 3
 count_numbers = 0
 number.step(1,-1){
@@ -29,15 +28,31 @@ def coprime (a,b)
 	return flag
 end
 
-def summ_numbers (a)
-
-
-
+def summ_digits (a)
+	summ = 0
+	while (a!=0) do
+		summ += a%10
+		a /=10  
+	end
+	return summ
 end
 
-
-def mult_numbers (a)
-
-
-
+def mult_digits (a)
+	mult = 1
+	while (a!=0) do
+		mult *= a%10
+		a /=10  
+	end
+	return mult
 end
+
+summ_digits_main_number = summ_digits(number)
+mult_digits_main_number = mult_digits(number)
+summ_for_third_task = 0
+
+(2..number).each{
+	|a|
+	if number % a == 0 and coprime(a,summ_digits_main_number) == true and coprime(a,mult_digits_main_number) == false then
+		summ_for_third_task += a end
+}
+puts ("сумма всех делителей числа, взаимно простых с суммой цифр числа и не взаимно простых с произведением цифр числа: #{summ_for_third_task}")
