@@ -7,6 +7,10 @@ class Student
   	@first_name = first_name
   	@last_name = last_name
   	@sur_name = sur_name
+  	@phone = phone
+  	@tg = tg
+  	@mail = mail
+  	@git = git
   end
 
 #get/set for id
