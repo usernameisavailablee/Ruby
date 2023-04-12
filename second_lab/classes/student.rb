@@ -1,14 +1,15 @@
 class Student
   attr_accessor :id, :first_name, :last_name, :sur_name,:phone,:tg, :mail, :git
-  def initialize (id, last_name, first_name, sur_name, **contacts)
+
+  def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil)
   	@id = id
     @last_name = last_name
   	@first_name = first_name
   	@sur_name = sur_name
-  	@phone = contacts[:phone]
-  	@tg = contacts[:tg]
-  	@mail = contacts[:mail]
-  	@git = contacts[:git]
+  	@phone = phone
+  	@tg = tg
+  	@mail = mail
+  	@git = git
   end
 
   def print_all()
@@ -17,4 +18,5 @@ class Student
       " " + @tg.to_s + " " + @mail.to_s + " " + @git.to_s)
     puts conc.split.join(" ")
   end
+  
 end
