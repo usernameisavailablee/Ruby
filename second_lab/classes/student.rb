@@ -52,4 +52,20 @@ class Student
     self.git  = git if git
   end
 
+  def self.from_string(string)
+    id, last_name, first_name, sur_name, phone, tg, mail, git = string.split(',')
+    raise InvalidCsvStringError, "Invalid string" if id.nil? || last_name.nil? || first_name.nil? || sur_name.nil?
+    new(
+      id: id,
+      last_name: last_name,
+      first_name: first_name,
+      sur_name: sur_name,
+      phone: phone,
+      tg: tg,
+      mail: mail,
+      git: git
+    )
+  end
+
+
 end
