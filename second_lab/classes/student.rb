@@ -6,10 +6,10 @@ class Student
     @last_name = last_name
   	@first_name = first_name
   	@sur_name = sur_name
-  	@phone = phone
   	@tg = tg
   	@mail = mail
   	@git = git
+    @phone = phone
   end
 
   def print_all()
@@ -18,5 +18,10 @@ class Student
       " " + @tg.to_s + " " + @mail.to_s + " " + @git.to_s)
     puts conc.split.join(" ")
   end
-  
+
+
+  def self.valid_number?(phone)
+    phone =~ (/\A[+]7\s([(]\d{3}[)])\s\d{3}[-]\d{2}[-]\d{2}\z/) 
+  end
+
 end
