@@ -19,9 +19,9 @@ class Student
   attr_validated (:phone) {|val| val =~ Valid_phone || val.nil?}
 
   def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil)
-  	self.id = id
+    self.id = id
     self.last_name = last_name
-  	self.first_name = first_name
+    self.first_name = first_name
   	self.sur_name = sur_name
   	self.tg = tg
   	self.mail = mail
