@@ -37,4 +37,14 @@ class Student
   end
 
 
+  def validate_git
+    raise "Git не установлен" if git == nil
+  end
+
+  def validate_contact_info
+    contact_info = [:phone, :mail, :tg]
+    raise "Нет контактной информации" unless contact_info.any? { |info| !send(info).nil? }
+  end
+
+
 end
