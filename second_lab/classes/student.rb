@@ -36,7 +36,6 @@ class Student
     puts conc.split.join(" ")
   end
 
-
   def validate_git
     raise "Git не установлен" if git == nil
   end
@@ -46,5 +45,11 @@ class Student
     raise "Нет контактной информации" unless contact_info.any? { |info| !send(info).nil? }
   end
 
+  def set_contacts(phone:nil, tg:nil, mail:nil, git:nil)
+    self.phone = phone if phone
+    self.mail  = mail if mail
+    self.tg = tg if tg
+    self.git  = git if git
+  end
 
 end

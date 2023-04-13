@@ -8,7 +8,9 @@ bulka = Student.new(id:'1', last_name:'Рупасов', first_name:'Глеб',
 bulka1 = Student.new(id:'1', last_name:'Рупасов', first_name:'Глеб',
  sur_name:'Александрович')
 
-bulka.print_all()
+bulka1.set_contacts(phone:'+7 (999) 999-99-22')
+bulka1.print_all()
+#bulka.print_all()
 
-p bulka1.validate_git()
+#p bulka1.validate_git()
 
