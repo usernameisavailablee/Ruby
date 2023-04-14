@@ -4,6 +4,7 @@ class Student
 
   include AttrValidated
 
+
   Valid_git = /\Ahttps?:\/\/github\.com\/[a-zA-Z0-9_\-]/
   Valid_mail = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   Valid_phone = /\A[+]7\s([(]\d{3}[)])\s\d{3}[-]\d{2}[-]\d{2}\z/
@@ -11,12 +12,14 @@ class Student
   Valid_tg = /^@([A-Za-z0-9_]{5,32})$/
   Valid_name = /^[а-яА-ЯёЁa-zA-Z]+$/
 
+
   attr_validated (:id) {|val| val =~ Valid_id || val.nil?}
   attr_validated :last_name,:first_name,:sur_name do |val| val =~ Valid_name || val.nil? end
   attr_validated (:tg) {|val| val =~ Valid_tg || val.nil?} 
   attr_validated (:mail) {|val| val =~ Valid_mail || val.nil?} 
   attr_validated (:git) {|val| val =~ Valid_git || val.nil?} 
   attr_validated (:phone) {|val| val =~ Valid_phone || val.nil?}
+
 
   def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil)
     self.id = id
@@ -29,6 +32,7 @@ class Student
     self.phone = phone
   end
 
+
   def print_all()
     conc =  (@id.to_s + " " + @last_name.to_s + " " + 
       @first_name.to_s + " " + @sur_name.to_s + " " + @phone.to_s + 
@@ -36,14 +40,17 @@ class Student
     puts conc.split.join(" ")
   end
 
+
   def validate_git
     raise "Git не установлен" if git == nil
   end
+
 
   def validate_contact_info
     contact_info = [:phone, :mail, :tg]
     raise "Нет контактной информации" unless contact_info.any? { |info| !send(info).nil? }
   end
+
 
   def set_contacts(phone:nil, tg:nil, mail:nil, git:nil)
     self.phone = phone if phone
@@ -52,19 +59,36 @@ class Student
     self.git  = git if git
   end
 
+
   def self.from_string(string)
-    id, last_name, first_name, sur_name, phone, tg, mail, git = string.split(',')
-    raise InvalidCsvStringError, "Invalid string" if id.nil? || last_name.nil? || first_name.nil? || sur_name.nil?
-    new(
-      id: id,
-      last_name: last_name,
-      first_name: first_name,
-      sur_name: sur_name,
-      phone: phone,
-      tg: tg,
-      mail: mail,
-      git: git
-    )
+
+    string = string.split(" ")
+
+    id = string.shift
+    last_name = string.shift
+    first_name = string.shift
+    sur_name = string.shift
+
+    while string.length() !=0 do 
+
+      str_val = string.shift
+
+      case str_val
+      when Valid_phone
+        phone = str_val
+
+      when Valid_tg
+        tg = str_val
+
+      when Valid_git
+        git = str_val
+
+      when Valid_mail
+        mail = str_val
+      end
+    end
+    #Строка проверяется при создании => если она шляпа, мы и так об этом узнаем!
+    Student.new(id:id, last_name: last_name, first_name: first_name, sur_name: sur_name, tg: tg, git: git, mail: mail, phone:phone
   end
 
 
