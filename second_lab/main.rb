@@ -1,4 +1,5 @@
 require './classes/student.rb'
+require './classes/student_short.rb'
 
 
 bulka = Student.new(id:'1', last_name:'Рупасов', first_name:'Глеб',
@@ -8,9 +9,14 @@ bulka = Student.new(id:'1', last_name:'Рупасов', first_name:'Глеб',
 bulka1 = Student.new(id:'1', last_name:'Рупасов', first_name:'Глеб',
  sur_name:'Александрович')
 
+student_short1 = StudentShort.new(bulka)
 
-string = "1 a a a https://github.com/ivanov @ivanov "
-student = Student.from_string(string)
-student.print_all()
+student_short = StudentShort.new(nil, '1', 'Smith John Doe https://github.com/johndoe 123456789 @johndoe johndoe@example.com')
+p student_short
+
+
+
+
+
 
 

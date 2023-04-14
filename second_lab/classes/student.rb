@@ -88,7 +88,13 @@ class Student
       end
     end
     #Строка проверяется при создании => если она шляпа, мы и так об этом узнаем!
-    Student.new(id:id, last_name: last_name, first_name: first_name, sur_name: sur_name, tg: tg, git: git, mail: mail, phone:phone
+    Student.new(id:id, last_name: last_name, first_name: first_name, sur_name: sur_name, tg: tg, git: git, mail: mail, phone:phone)
+  end
+
+
+  def getInfo
+    info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}.; git: #{@git} Telegram: #{@tg}"
+    return info
   end
 
 
