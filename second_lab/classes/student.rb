@@ -5,7 +5,7 @@ class Student
   include AttrValidated
 
 
-  Valid_git = /\Ahttps?:\/\/github\.com\/[a-zA-Z0-9_\-]/
+  Valid_git_name_name = /^[a-zA-Z\d]+(-[a-zA-Z\d]+)*$/
   Valid_mail = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
   Valid_phone = /\A[+]7\s([(]\d{3}[)])\s\d{3}[-]\d{2}[-]\d{2}\z/
   Valid_id = /^[0-9]+$/
@@ -17,25 +17,24 @@ class Student
   attr_validated :last_name,:first_name,:sur_name do |val| val =~ Valid_name || val.nil? end
   attr_validated (:tg) {|val| val =~ Valid_tg || val.nil?} 
   attr_validated (:mail) {|val| val =~ Valid_mail || val.nil?} 
-  attr_validated (:git) {|val| val =~ Valid_git || val.nil?} 
+  attr_validated (:git_name) {|val| val =~ Valid_git_name_name || val.nil?} 
   attr_validated (:phone) {|val| val =~ Valid_phone || val.nil?}
 
 
-  def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil,vk:nil)
+  def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git_name:nil)
     self.id = id
     self.last_name = last_name
     self.first_name = first_name
     self.sur_name = sur_name
     self.tg = tg
     self.mail = mail
-    self.git = git
+    self.git_name = git_name
     self.phone = phone
-    @vk = 1
   end
 
 
-  def validate_git
-    raise "Git не установлен" if git == nil
+  def validate_git_name
+    raise "git_name не установлен" if git_name == nil
   end
 
 
@@ -45,17 +44,17 @@ class Student
   end
 
 
-  def set_contacts(phone:nil, tg:nil, mail:nil, git:nil)
+  def set_contacts(phone:nil, tg:nil, mail:nil, git_name:nil)
     self.phone = phone if phone
     self.mail  = mail if mail
     self.tg = tg if tg
-    self.git  = git if git
+    self.git_name  = git_name if git_name
   end
 
 
 
   def getInfo
-    info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}.; git: #{@git} Telegram: #{@tg}"
+    info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}.; git_name: #{@git_name} Telegram: #{@tg}"
     return info
   end
 
