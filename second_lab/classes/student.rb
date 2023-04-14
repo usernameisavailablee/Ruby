@@ -21,7 +21,7 @@ class Student
   attr_validated (:phone) {|val| val =~ Valid_phone || val.nil?}
 
 
-  def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil)
+  def initialize (id:, last_name:, first_name:, sur_name:, phone:nil, tg:nil, mail:nil, git:nil,vk:nil)
     self.id = id
     self.last_name = last_name
     self.first_name = first_name
@@ -30,14 +30,7 @@ class Student
     self.mail = mail
     self.git = git
     self.phone = phone
-  end
-
-
-  def print_all()
-    conc =  (@id.to_s + " " + @last_name.to_s + " " + 
-      @first_name.to_s + " " + @sur_name.to_s + " " + @phone.to_s + 
-      " " + @tg.to_s + " " + @mail.to_s + " " + @git.to_s)
-    puts conc.split.join(" ")
+    @vk = 1
   end
 
 
@@ -60,42 +53,46 @@ class Student
   end
 
 
-  def self.from_string(string)
-
-    string = string.split(" ")
-
-    id = string.shift
-    last_name = string.shift
-    first_name = string.shift
-    sur_name = string.shift
-
-    while string.length() !=0 do 
-
-      str_val = string.shift
-
-      case str_val
-      when Valid_phone
-        phone = str_val
-
-      when Valid_tg
-        tg = str_val
-
-      when Valid_git
-        git = str_val
-
-      when Valid_mail
-        mail = str_val
-      end
-    end
-    #Строка проверяется при создании => если она шляпа, мы и так об этом узнаем!
-    Student.new(id:id, last_name: last_name, first_name: first_name, sur_name: sur_name, tg: tg, git: git, mail: mail, phone:phone)
-  end
-
 
   def getInfo
     info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}.; git: #{@git} Telegram: #{@tg}"
     return info
   end
+
+  def print_all()
+    # Получаем список всех переменных экземпляра
+    instance_variables_list = instance_variables.map {|var| var.to_s[1..-1] }
+
+    # Собираем строку с названиями полей и их значениями
+    output = ""
+    instance_variables_list.each do |var|
+      # Получаем значение поля 
+      value = instance_variable_get("@#{var}")
+
+      # Форматируем строку для данного поля
+      if output.empty?
+        output += "#{var}: #{value}"
+      else
+        output += ", #{var}: #{value}"
+      end
+    end
+    return output
+  end
+
+
+
+
+def self.from_string(str)
+  params = {}
+  str.split(',').map(&:strip).each do |field|
+    key, value = field.split(':').map(&:strip)
+    unless defined?("@#{key}")
+      raise "Unknown field: #{key}"
+    end
+    params[key.to_sym] = value
+  end
+  self.new(**params)
+end
 
 
 end
