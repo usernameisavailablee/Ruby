@@ -1,32 +1,18 @@
 require './classes/student.rb'
 
 class StudentShort
-  attr_reader :id, :full_name, :git, :contact
+  attr_reader :id, :fullname, :git, :contact
 
-  def initialize(student = nil, id = nil, data_string = nil)
-    if student
-      @id = student.id
-      @full_name = "#{student.last_name} #{student.first_name[0]}.#{student.sur_name[0]}."
-      @git = student.git
-      @contact = { phone: student.phone, tg: student.tg, mail: student.mail }
-    else
-      @id = id
-      data = data_string.split(' ')
-      @full_name = "#{data[0]} #{data[1][0]}.#{data[2][0]}."
-      @git = data[3]
-      @contact = { phone: nil, tg: nil, mail: nil }
+  def initialize(id: , contact_string:)
+    @id = id
+    contacts = contact_string.split("\t")
+    @fullname = contacts[0]
+    @git = contacts[1]
+    @contact = contacts[2]
+  end
 
-      data.each_with_index do |val, i|
-        case val
-        when /\A[+]7\s[(]\d{3}[)]\s\d{3}[-]\d{2}[-]\d{2}\z/
-          @contact[:phone] = val
-        when /\A@([A-Za-z0-9_]{5,32})\z/
-          @contact[:tg] = val
-        when /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-          @contact[:mail] = val
-        end
-      end
-    end
+
+  def self.student_init(student_obj)
+    new(id: student_obj.id, contact_string: student_obj.getInfo)
   end
 end
-

@@ -54,7 +54,7 @@ class Student
 
 
   def getInfo
-    info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}.; git_name: #{@git_name} Telegram: #{@tg}"
+    info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}\t#{@git_name}\t#{@tg}"
     return info
   end
 
