@@ -1,6 +1,8 @@
 require './classes/student.rb'
+require './classes/field_converter.rb'
 
-class StudentShort
+
+class StudentShort < FieldConverter
   attr_reader :id, :fullname, :git, :contact
 
   def initialize(id: , contact_string:)
