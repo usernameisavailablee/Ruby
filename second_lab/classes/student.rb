@@ -79,8 +79,6 @@ class Student
   end
 
 
-
-
 def self.from_string(str)
   params = {}
   str.split(',').map(&:strip).each do |field|
