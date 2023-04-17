@@ -7,14 +7,6 @@ class Student < FieldConverter
   include AttrValidated
 
 
-  Valid_git_name_name = /^[a-zA-Z\d]+(-[a-zA-Z\d]+)*$/
-  Valid_mail = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
-  Valid_phone = /\A[+]7\s([(]\d{3}[)])\s\d{3}[-]\d{2}[-]\d{2}\z/
-  Valid_id = /^[0-9]+$/
-  Valid_tg = /^@([A-Za-z0-9_]{5,32})$/
-  Valid_name = /^[а-яА-ЯёЁa-zA-Z]+$/
-
-
   attr_validated (:id) {|val| val =~ Valid_id || val.nil?}
   attr_validated :last_name,:first_name,:sur_name do |val| val =~ Valid_name || val.nil? end
   attr_validated (:tg) {|val| val =~ Valid_tg || val.nil?} 
@@ -32,6 +24,7 @@ class Student < FieldConverter
     self.mail = mail
     self.git_name = git_name
     self.phone = phone
+    @@students << self
   end
 
 
@@ -53,7 +46,31 @@ class Student < FieldConverter
     self.git_name  = git_name if git_name
   end
 
+  def self.read_from_txt(path,separator = ';')
+    raise Errno::ENOENT,"Bad path #{path}" unless File.file?(path)
+    File.open(path) do |file|
+      keys = file.first.chop.split(separator)
+      file.each do |line|
+        params = {}
+        values = line.split(separator)
+        values[-1] = values[-1].chop
+        (keys.length).times do |i|
+          values[i] = nil if values[i].length == 0
+          params[keys[i].to_sym] = values[i]
+        end
+        new(**params)
+      end
+    end
+  end
 
+  def self.write_to_txt(path,separator = ';')
+  File.open(path,'w') do |file|
+    file.puts @@students[0].get_titles(separator)
+    @@students.each do |student|
+      file.puts student.get_data(separator)
+    end
+  end
+end
 
   def getInfo
     info = "#{@last_name} #{@first_name[0]}.#{@sur_name[0]}\t#{@git_name}\t#{@tg}"
