@@ -1,6 +1,6 @@
 require './classes/student.rb'
 require './classes/student_short.rb'
-
+require './classes/data_table.rb'
 
 
 #  str = "id: 123, last_name: Иванов, first_name: Иван, sur_name: Иванович, phone: +71111111111, tg: @asddsa, mail: ivanov@mail.com, git_name: asddsa"
@@ -13,13 +13,21 @@ require './classes/student_short.rb'
 # Student.write_to_txt('./data_files/students_data'," ")
 
 
-Student.read_from_txt('./data_files/students_data'," ")
+#Student.read_from_txt('./data_files/students_data'," ")
 
 
-students = Student.get_students
-students.each do |student|
-	puts student.print_all() 
-end	
+
+data = [['Значение 1', 'Значение 2'], ['Значение 3', 'Значение 4']]
+table = Data_table.new(data)
+
+value = table.get_element(1, 1)
+puts value  # Вывод: Значение 3
+
+
+#students = Student.get_students
+#students.each do |student|
+#	puts student.print_all() 
+#end	
 
 
 
