@@ -1,8 +1,16 @@
 class DataList
+
   def initialize(elements)
     @data = elements.freeze
     @selected = []
   end
+
+  def data=(new_data)
+    raise ArgumentError, "Неверный размер массива данных" unless new_data.size == @data.size
+
+    @data = new_data
+  end
+  
 
   def select(number)
     element = @data[number]
