@@ -8,7 +8,7 @@ class FieldConverter
   Valid_name = /^[а-яА-ЯёЁa-zA-Z]+$/
   @@students=[]
 
-  
+  #efeawfvds
   def print_all()
     # Получаем список всех переменных экземпляра
     instance_variables_list = instance_variables.map {|var| var.to_s[1..-1] }
