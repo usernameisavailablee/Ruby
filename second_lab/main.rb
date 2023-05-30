@@ -1,6 +1,7 @@
 require './classes/student.rb'
 require './classes/student_short.rb'
 require './classes/data_table.rb'
+require './classes/data_list.rb'
 
 
 #  str = "id: 123, last_name: Иванов, first_name: Иван, sur_name: Иванович, phone: +71111111111, tg: @asddsa, mail: ivanov@mail.com, git_name: asddsa"
@@ -23,6 +24,9 @@ table = Data_table.new(data)
 value = table.get_element(1, 1)
 puts value  # Вывод: Значение 3
 
+elements = [table]
+data_list = DataList.new(elements)
+p data_list
 
 #students = Student.get_students
 #students.each do |student|
