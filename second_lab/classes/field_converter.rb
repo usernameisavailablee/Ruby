@@ -6,10 +6,10 @@ class FieldConverter
   Valid_id = /^[0-9]+$/
   Valid_tg = /^@([A-Za-z0-9_]{5,32})$/
   Valid_name = /^[а-яА-ЯёЁa-zA-Z]+$/
+
   @@students=[]
-
-
-  def print_all()
+  
+  def to_s()
     # Получаем список всех переменных экземпляра
     instance_variables_list = instance_variables.map {|var| var.to_s[1..-1] }
 

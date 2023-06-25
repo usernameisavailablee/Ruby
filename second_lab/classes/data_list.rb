@@ -21,11 +21,20 @@ class DataList
     @selected.dup
   end
 
-  def get_names
-    raise NotImplementedError, "Метод get_names не реализован в этом классе."
+
+  protected
+  def get_names; end
+
+  # Шаблонный метод.
+  def get_data
+    ans_array = []
+    data.map.with_index do |obj, index|
+      ans_array.append([index].append(self.get_info(obj)))
+    end
+
+    DataTable.new ans_array
   end
 
-  def get_data
-    raise NotImplementedError, "Метод get_data не реализован в этом классе."
-  end
+  protected def get_info(obj); end
+
 end

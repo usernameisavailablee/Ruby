@@ -7,7 +7,7 @@ class Student < FieldConverter
   include AttrValidated
 
 
-  attr_validated (:id) {|val| val =~ Valid_id || val.nil?}
+  attr_validated (:id) {|val| val.to_s =~ Valid_id || val.nil?}
   attr_validated :last_name,:first_name,:sur_name do |val| val =~ Valid_name || val.nil? end
   attr_validated (:tg) {|val| val =~ Valid_tg || val.nil?} 
   attr_validated (:mail) {|val| val =~ Valid_mail || val.nil?} 
