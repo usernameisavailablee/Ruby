@@ -15,21 +15,7 @@ data_list = DataListStudentShort.new(elements)
 # Создаем экземпляр класса Students_list_JSON, указывая путь к файлу
 students_list = Students_list_JSON.new()
 
+students_list.read_from_file("student.json")
 
-# Создаем нового студента
-new_student = {
-  id: 1,
-  last_name: 'Smith',
-  first_name: 'John',
-  sur_name: 'Doe',
-  phone: '123456789',
-  tg: '@johndoe',
-  mail: 'john.doe@example.com',
-  git_name: 'johndoe'
-}
+students_list.write("student1.json")
 
-
-json_data = [student1.to_hash,student.to_hash]
-students_list.write(json_data,"student.json")
-
-p students_list.read_from_file("student.json")

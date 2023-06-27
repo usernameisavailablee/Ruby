@@ -1,0 +1,2 @@
+{:id=>2, :last_name=>"Иванов", :first_name=>"Иван", :sur_name=>"Иванович", :tg=>nil, :mail=>nil, :git_name=>nil, :phone=>nil}
+{:id=>1, :last_name=>"Иванов", :first_name=>"Иван", :sur_name=>"Иванович", :tg=>nil, :mail=>nil, :git_name=>nil, :phone=>nil}
