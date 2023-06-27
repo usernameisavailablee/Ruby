@@ -29,9 +29,8 @@ new_student = {
 }
 
 
-json_data = student.to_hash
-
-#students_list.write(new_student,"student.json")
-
-students_list.write(json_data,"student.json")
+#json_data = student.to_hash
+#students_list.write(json_data,"student.json")
+#json_data = student1.to_hash
+#students_list.write(json_data,"student.json")
 p students_list.read_from_file("student.json")

@@ -6,19 +6,23 @@ class Students_list_JSON
   end
 
   def read_from_file(file_path)
-    raise Errno::ENOENT, "Bad file path #{@file_path}" unless File.file?(file_path)
+    raise Errno::ENOENT, "Bad file path #{file_path}" unless File.file?(file_path)
 
     json_data = File.read(file_path)
     @students = JSON.parse(json_data, symbolize_names: true)
   end
 
-  def write(hash_data,file_path)
+  def write(hash_data, file_path)
     json_data = JSON.generate(hash_data)
-    File.open(file_path, 'w') { |file| file.write(json_data) }
+    File.open(file_path, 'a+') do |file|
+      file.write(json_data)
+      file.write(",\n")  # Добавление запятой и перевода строки
+    end
     puts "Hash data has been written to #{file_path}."
   rescue StandardError => e
     puts "Error occurred while writing to file: #{e.message}"
   end
+
 
   def add_student(student)
     @students << student
