@@ -15,7 +15,7 @@ class Students_list_JSON
   def write(file_path)
     json_data = JSON.generate(self.students)
     File.open(file_path, 'w') do |file|
-      file.puts(self.students)
+      file.puts(json_data)
     end
     puts "Hash data has been written to #{file_path}."
   rescue StandardError => e
