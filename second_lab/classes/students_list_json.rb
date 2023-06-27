@@ -14,9 +14,8 @@ class Students_list_JSON
 
   def write(hash_data, file_path)
     json_data = JSON.generate(hash_data)
-    File.open(file_path, 'a+') do |file|
-      file.write(json_data)
-      file.write(",\n")  # Добавление запятой и перевода строки
+    File.open(file_path, 'w') do |file|
+      file.puts(json_data)
     end
     puts "Hash data has been written to #{file_path}."
   rescue StandardError => e
