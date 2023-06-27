@@ -1,3 +1,5 @@
+require 'json'
+
 class FieldConverter
 
   Valid_git_name_name = /^[a-zA-Z\d]+(-[a-zA-Z\d]+)*$/
@@ -6,6 +8,8 @@ class FieldConverter
   Valid_id = /^[0-9]+$/
   Valid_tg = /^@([A-Za-z0-9_]{5,32})$/
   Valid_name = /^[а-яА-ЯёЁa-zA-Z]+$/
+
+
 
   @@students=[]
   
@@ -42,18 +46,27 @@ class FieldConverter
 	  self.new(**params)
 	end
 
-	def get_permit_data
-		fields = []
+  def get_fields
+    fields = []
     self.instance_variables.each do |var|
       key = var.to_s.delete("@")
       if self.respond_to?(key)
         value = self.send(key)
-        fields << "#{key}: #{value}" # важный пробел
+        fields << [key, value]
       end
-  	end
-  	fields
-	end
+    end
+    fields
+  end
 
+  def get_permit_data
+    fields = get_fields.map { |key, value| "#{key}: #{value}" }
+  end
+
+  def to_hash
+    fields = get_fields.to_h
+  end
+
+  
 	def get_titles(separator = ';')
 		get_permit_data.map{|val| val.split(":").first}.join("#{separator}")
 	end
