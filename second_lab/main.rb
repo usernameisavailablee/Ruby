@@ -19,3 +19,8 @@ students_list.read_from_file("student.json")
 
 students_list.write("student1.json")
 
+p students_list.sort_by_lastname
+
+p students_list.get_student_count
+
+#p students_list.get_student_id(1)
