@@ -4,23 +4,43 @@ require './classes/data_table.rb'
 require './classes/data_list.rb'
 require './classes/data_list_student_short.rb'
 require './classes/students_list_json.rb'
+require './classes/student_list_yaml.rb'
+require './classes/student_list_super.rb'
+require './classes/studeent_list_strategy.rb'
+require 'sqlite3'
+
+# Устанавливаем соединение с базой данных
+db = SQLite3::Database.new('./data_files/students.db')
+
+# Создаем таблицу
+db.execute <<-SQL
+  CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY,
+    last_name TEXT,
+    first_name TEXT,
+    sur_name TEXT,
+    tg TEXT,
+    mail TEXT,
+    git_name TEXT,
+    phone TEXT
+  );
+SQL
+
+# Закрываем соединение с базой данных
+db.close
+
 
 
 # Добавление студента
 student = Student.new(id: 1, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
 student1 = Student.new(id: 2, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
-elements = [1, 2, 3, 4, 5]
-data_list = DataListStudentShort.new(elements)
 
-# Создаем экземпляр класса Students_list_JSON, указывая путь к файлу
-students_list = Students_list_JSON.new()
 
-students_list.read_from_file("student.json")
+a = StudentListSuper.new(StudentsListJSON.new())
 
-students_list.write("student1.json")
+b = StudentListSuper.new(StudentListYaml.new())
 
-p students_list.sort_by_lastname
+a.read_from_file("student.json")
 
-p students_list.get_student_count
+a.write_to_file("student22.json")
 
-#p students_list.get_student_id(1)
