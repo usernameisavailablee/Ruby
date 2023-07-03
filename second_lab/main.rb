@@ -7,30 +7,13 @@ require './classes/students_list_json.rb'
 require './classes/student_list_yaml.rb'
 require './classes/student_list_super.rb'
 require './classes/studeent_list_strategy.rb'
+require_relative './classes/DB_working.rb'
+require './classes/student_list_DB.rb'
 require 'sqlite3'
 
-# Устанавливаем соединение с базой данных
-db = SQLite3::Database.new('./data_files/students.db')
+a = StudentListDB.new
 
-# Создаем таблицу
-db.execute <<-SQL
-  CREATE TABLE IF NOT EXISTS students (
-    id INTEGER PRIMARY KEY,
-    last_name TEXT,
-    first_name TEXT,
-    sur_name TEXT,
-    tg TEXT,
-    mail TEXT,
-    git_name TEXT,
-    phone TEXT
-  );
-SQL
-
-# Закрываем соединение с базой данных
-db.close
-
-
-
+puts a.student_count
 # Добавление студента
 student = Student.new(id: 1, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
 student1 = Student.new(id: 2, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
