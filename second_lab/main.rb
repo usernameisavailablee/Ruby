@@ -34,13 +34,3 @@ db.close
 # Добавление студента
 student = Student.new(id: 1, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
 student1 = Student.new(id: 2, last_name: "Иванов", first_name: "Иван", sur_name: "Иванович")
-
-
-a = StudentListSuper.new(StudentsListJSON.new())
-
-b = StudentListSuper.new(StudentListYaml.new())
-
-a.read_from_file("student.json")
-
-a.write_to_file("student22.json")
-
