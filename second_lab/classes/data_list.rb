@@ -22,8 +22,6 @@ class DataList
   end
 
 
-  protected
-  def get_names; end
 
   # Шаблонный метод.
   def get_data

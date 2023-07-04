@@ -7,8 +7,6 @@ class StudentListSuper
     self.strategy = strategy
   end
 
-
-	# Метод. Чтение из файла
   def read_from_file(path)
   	raise Errno::ENOENT,"Bad path #{path}" unless File.file?(path)
   	File.open(path) do |file|
@@ -18,17 +16,24 @@ class StudentListSuper
   	end
   end
 
-	# Метод. Запись на файл
   def write_to_file(path)
 		File.open(path,'w') do |file|
 		file.puts strategy.list_hash_to_str(students.map &:to_hash)
 		end
   end
 
-  def get_k_n_sudent_short_list(k, n, data_list_obj = nil)
-    return data_list_obj unless data_list_obj.nil?
-    DataListStudentShort.new(students.slice((k-1) * n, n).map!{ |e| StudentShort.new(e) })
+  def get_k_n_student_short_list(k, n, existing_data_list = nil)
+    subset = students[k...(k + n)].map { |student| StudentShort.student_init(student) }
+
+    if existing_data_list
+      existing_data_list.data = subset
+      existing_data_list
+    else
+      DataList.new(subset)
+    end
   end
+
+  
 
   def sort_by_lastname
     self.students.sort_by(&:last_name)
