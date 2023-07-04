@@ -1,17 +1,30 @@
-class Data_table
+class DataTable
   def initialize(data)
-    @table = data.freeze
+    self.data = data
   end
 
-  def get_element(row, column)
-    @table[row][column]
+  # Метод. Возвращает ячейку
+  def get_cell(row, col)
+    self.data[row][col]
   end
 
-  def column_count
-    @table[0].length
+  # Метод. Возвращает количество столбцов
+  def num_columns
+    if !self.data[0].nil?
+    self.data[0].length
+    end
   end
 
-  def row_count
-    @table.length
+  # Метод. Возвращает количество строк
+  def num_rows
+    self.data.length
   end
+
+  # Метод. Устанавливает новое значение
+  def set_data(new_data)
+    self.data = new_data.dup
+  end
+
+  private
+    attr_accessor :data
 end

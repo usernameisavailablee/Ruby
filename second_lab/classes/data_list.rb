@@ -5,11 +5,11 @@ class DataList
     @selected = []
   end
 
-  def data=(new_data)
-    raise ArgumentError, "Неверный размер массива данных" unless new_data.size == @data.size
+  # def data=(new_data)
+  #   raise ArgumentError, "Неверный размер массива данных" unless new_data.size == @data.size
 
-    @data = new_data
-  end
+  #   @data = new_data
+  # end
   
 
   def select(number)
@@ -21,13 +21,19 @@ class DataList
     @selected.dup
   end
 
+  def set_data(new_data)
+    @data = new_data.dup
+  end
 
+  def get_list_objs
+    @data
+  end
 
   # Шаблонный метод.
   def get_data
     ans_array = []
-    data.map.with_index do |obj, index|
-      ans_array.append([index].append(self.get_info(obj)))
+    @data.map.with_index do |obj, index|
+      ans_array.append(self.get_info(obj).unshift(index))
     end
 
     DataTable.new ans_array

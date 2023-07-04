@@ -3,15 +3,15 @@ require_relative 'student.rb'
 require_relative 'student_short.rb'
 require_relative 'DB_working.rb'
 require 'sqlite3'
-
-class StudentListDB
+require_relative 'student_list.rb'
+class StudentListDB < StudentList
 	def initialize()
-		self.db = DBWorking.new
+		self.db = DBWorking.instance
 	end
 
 	def get_k_n_student_short_list(elements_per_page, page_number)
 		raise "Некорректно выбран объем данных" if elements_per_page < 1 and page_number < 1
-		students = db.execute('SELECT * FROM student LIMIT ? OFFSET ?',elements_per_page,elements_per_page * (page_number - 1))
+		students = db.execute('SELECT * FROM students LIMIT ? OFFSET ?',elements_per_page,elements_per_page * (page_number - 1))
 	  	slice = students.map{|student| StudentShort.student_init(Student.new(**student.transform_keys(&:to_sym)))}
 	  	DataListStudentShort.new(slice)
 	  end
@@ -34,7 +34,7 @@ class StudentListDB
 	  db.execute('UPDATE students SET last_name=?, first_name=?, sur_name=?, tg=?, mail=?, git_name=?, phone=? WHERE id=?',*student_fields(obj_student), student_id)
 	end
 
-  def student_count
+  def get_student_count
     self.db.results_as_hash=false
     res = self.db.execute("Select COUNT(*) from students").first[0]
     self.db.results_as_hash=true
